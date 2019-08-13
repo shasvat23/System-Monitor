@@ -17,14 +17,26 @@ void ProcessContainer::refreshList(){
     std::vector<std::string> pidList = ProcessParser::getPidList();
     this->_list.clear();
     for(int i=0;i<pidList.size();i++){
+        try{
         Process proc(pidList[i]);
         this->_list.push_back(proc);
+        }
+        catch(exception& err)
+        {
+            //handleException(err);
+        }
     }
 }
 std::string ProcessContainer::printList(){
     std::string result="";
     for(int i=0;i<this->_list.size();i++){
+        try{
         result += this->_list[i].getProcess();
+        }
+        catch(exception& err)
+        {
+            //handleException(err);
+        }
     }
     return result;
 }
@@ -32,7 +44,13 @@ std::vector<std::vector<std::string> > ProcessContainer::getList(){
     std::vector<std::vector<std::string>> values;
     std::vector<std::string> stringifiedList;
     for(int i=0; i<ProcessContainer::_list.size(); i++){
+        try{
         stringifiedList.push_back(ProcessContainer::_list[i].getProcess());
+        }
+        catch(exception& err)
+        {
+            //handleException(err);
+        }
     }
     int lastIndex = 0;
     for (int i=0; i<stringifiedList.size();i++){
